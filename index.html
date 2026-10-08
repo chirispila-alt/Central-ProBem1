@@ -558,6 +558,96 @@
         @media (max-width: 620px) {
             .academic-info { grid-template-columns: 1fr; }
         }
+
+        /* ===== LANÇAMENTOS ===== */
+        .launch {
+            margin-top: 22px;
+            background: #fff;
+            border: 1px solid #816BAE;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(46, 34, 80, .04);
+        }
+
+        .launch-head {
+            background: #816BAE;
+            color: #fff;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .launch-head h2 {
+            margin: 0;
+            font-size: var(--fs-md);
+            font-weight: 600;
+        }
+
+        .launch-year {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: var(--fs-sm);
+        }
+
+        .launch-year select {
+            width: auto;
+            padding: 5px 10px;
+            border: 0;
+            border-radius: 6px;
+            background: #fff;
+            color: #2e2250;
+            font-size: var(--fs-sm);
+            cursor: pointer;
+        }
+
+        .launch-body {
+            padding: 14px 16px 6px;
+            overflow-x: auto;
+        }
+
+        .launch table {
+            width: 100%;
+            min-width: 720px;
+            border-collapse: collapse;
+            font-size: var(--fs-sm);
+            color: #2e2250;
+        }
+
+        .launch th {
+            background: #f1edf8;
+            text-align: left;
+            font-weight: 700;
+            padding: 10px 12px;
+        }
+
+        .launch td {
+            padding: 11px 12px;
+            border-bottom: 1px solid #e5dff0;
+        }
+
+        .launch tbody tr:hover {
+            background: #faf8fd;
+        }
+
+        .launch .money {
+            white-space: nowrap;
+        }
+
+        .launch tfoot td {
+            border-bottom: 0;
+            border-top: 2px solid #e5dff0;
+            font-weight: 700;
+        }
+
+        .launch-note {
+            padding: 4px 18px 14px;
+            color: #75698f;
+            font-size: var(--fs-xs);
+        }
     </style>
 </head>
 
@@ -610,105 +700,128 @@
                 </div>
             </section>
 
-            <section class="stats">
-                <a href="meus-cursos.html" class="stat-card courses">
-                    <div class="stat-icon">📖</div>
-                    <div class="stat-info"><small>ATIVIDADES</small><strong>04</strong></div>
-                    <span class="card-arrow">›</span>
-                </a>
+            <section class="launch" aria-label="Lançamentos">
+                <div class="launch-head">
+                    <h2>Lançamentos</h2>
+                    <label class="launch-year">Ano
+                        <select id="lcAno"></select>
+                    </label>
+                </div>
 
-                <a href="pendencias.html" class="stat-card pending">
-                    <div class="stat-icon">⚠️</div>
-                    <div class="stat-info"><small>PENDÊNCIAS</small><strong>02</strong></div>
-                    <span class="card-arrow">›</span>
-                </a>
-
-                <a href="oportunidades.html" class="stat-card jobs">
-                    <div class="stat-icon">💼</div>
-                    <div class="stat-info"><small>VAGAS</small><strong>06</strong></div>
-                    <span class="card-arrow">›</span>
-                </a>
+                <div class="launch-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mês</th>
+                                <th>Ano</th>
+                                <th>Mensalidade</th>
+                                <th>Valor bolsa</th>
+                                <th>Tipo bolsa</th>
+                                <th>Faculdade</th>
+                                <th>Curso</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lcCorpo"></tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3">Total repassado no ano</td>
+                                <td class="money" id="lcTotalAno"></td>
+                                <td colspan="3"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <p class="launch-note">Valores repassados pela OVG à instituição de ensino, por mês.</p>
             </section>
 
-            <section class="attention">
-                <div class="attention-header">
-                    <span>⚠️</span><strong>ATENÇÃO</strong>
-                </div>
-
-                <div class="attention-item">
-                    <div class="attention-dot red"></div>
-                    <div class="attention-info">
-                        <strong>Documento pendente</strong>
-                        <span>Comprovante de residência</span>
-                        <small>📅 Prazo: 30/09/2026</small>
-                    </div>
-                    <a href="pendencias.html" class="btn resolve">Resolver</a>
-                </div>
-
-                <div class="attention-item">
-                    <div class="attention-dot yellow"></div>
-                    <div class="attention-info">
-                        <strong>Atividades pendente</strong>
-                        <span>Excel Básico</span>
-                    </div>
-                    <a href="meus-cursos.html" class="btn access">Acessar curso</a>
-                </div>
-            </section>
-
-            <section class="recommended">
-                <div class="recommended-header">
-                    <span>🚀</span><strong>RECOMENDADO PARA VOCÊ</strong>
-                </div>
-
-                <div class="recommendations">
-                    <article class="recommend-card">
-                        <div class="recommend-icon excel">X</div>
-                        <div class="recommend-info">
-                            <strong>Excel Avançado</strong>
-                            <span>Atividade disponível</span>
-                            <a href="Atividades.html">Ver atividade</a>
-                        </div>
-                        <div class="recommend-image excel-bg">💻</div>
-                    </article>
-
-                    <article class="recommend-card">
-                        <div class="recommend-icon job">💼</div>
-                        <div class="recommend-info">
-                            <strong>Estágio</strong>
-                            <span>Administrativo</span>
-                            <a href="oportunidades.html">Ver oportunidade</a>
-                        </div>
-                        <div class="recommend-image office-bg">🖥️</div>
-                    </article>
-                </div>
-            </section>
         </section>
     </main>
 </div>
     <script>
-        // Dados de exemplo. Quando houver sistema/API, basta preencher este objeto.
-        const dadosBeneficiario = {
+        // ===== DADOS DE EXEMPLO =====
+        // Substitua pelos dados reais (ou pela resposta de uma API).
+        // Cada item da lista "lancamentos" é um repasse mensal.
+        const beneficiario = {
             faculdade: "Universidade Exemplo de Goiás",
             curso: "Administração",
-            periodoAtual: "5º período",
-            semestreAtual: "2026-2",
-            periodosComBeneficio: 6,
-            primeiroPeriodo: "2024-1",
-            valorTotalInvestido: 18450
+            periodoAtual: "5º período"
         };
 
-        const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
-        const d = dadosBeneficiario;
-        const set = (id, texto) => { document.getElementById(id).textContent = texto; };
+        const lancamentos = [];
+        [2024, 2025, 2026].forEach(ano => {
+            const ultimoMes = ano === 2026 ? 9 : 12;
+            for (let mes = 2; mes <= ultimoMes; mes++) {
+                lancamentos.push({
+                    mes: mes,
+                    ano: ano,
+                    mensalidade: ano === 2024 ? 750 : 800,
+                    valorBolsa: ano === 2024 ? 350 : (ano === 2026 && mes === 7 ? 300 : 400),
+                    tipoBolsa: "PARCIAL"
+                });
+            }
+        });
 
-        set("acFaculdade", d.faculdade);
-        set("acCurso", d.curso);
-        set("acPeriodo", d.periodoAtual);
-        set("acSemestre", "Semestre " + d.semestreAtual);
-        set("acQtd", d.periodosComBeneficio + (d.periodosComBeneficio === 1 ? " período" : " períodos"));
-        set("acIntervalo", d.primeiroPeriodo + " a " + d.semestreAtual);
-        set("acTotal", brl.format(d.valorTotalInvestido));
-        set("acMedia", "Média de " + brl.format(d.valorTotalInvestido / d.periodosComBeneficio) + " por período");
+        // ===== CÁLCULOS =====
+        const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+        const set = (id, texto) => { document.getElementById(id).textContent = texto; };
+        const semestre = l => l.ano + "-" + (l.mes <= 6 ? 1 : 2);
+
+        const totalInvestido = lancamentos.reduce((soma, l) => soma + l.valorBolsa, 0);
+        const semestres = Array.from(new Set(lancamentos.map(semestre))).sort();
+        const qtdPeriodos = semestres.length;
+
+        // ===== RESUMO =====
+        set("acFaculdade", beneficiario.faculdade);
+        set("acCurso", beneficiario.curso);
+        set("acPeriodo", beneficiario.periodoAtual);
+        set("acSemestre", "Semestre " + semestres[qtdPeriodos - 1]);
+        set("acQtd", qtdPeriodos + (qtdPeriodos === 1 ? " período" : " períodos"));
+        set("acIntervalo", semestres[0] + " a " + semestres[qtdPeriodos - 1]);
+        set("acTotal", brl.format(totalInvestido));
+        set("acMedia", "Média de " + brl.format(totalInvestido / qtdPeriodos) + " por período");
+
+        // ===== TABELA DE LANÇAMENTOS =====
+        const selectAno = document.getElementById("lcAno");
+        const corpo = document.getElementById("lcCorpo");
+        const anos = Array.from(new Set(lancamentos.map(l => l.ano))).sort((a, b) => b - a);
+
+        anos.forEach(ano => {
+            const opcao = document.createElement("option");
+            opcao.value = ano;
+            opcao.textContent = ano;
+            selectAno.appendChild(opcao);
+        });
+
+        function desenharTabela() {
+            const ano = Number(selectAno.value);
+            const linhas = lancamentos.filter(l => l.ano === ano);
+            corpo.textContent = "";
+
+            linhas.forEach(l => {
+                const tr = document.createElement("tr");
+                const colunas = [
+                    String(l.mes).padStart(2, "0"),
+                    l.ano,
+                    brl.format(l.mensalidade),
+                    brl.format(l.valorBolsa),
+                    l.tipoBolsa,
+                    beneficiario.faculdade.toUpperCase(),
+                    beneficiario.curso.toUpperCase()
+                ];
+                colunas.forEach((valor, i) => {
+                    const td = document.createElement("td");
+                    td.textContent = valor;
+                    if (i === 2 || i === 3) td.className = "money";
+                    tr.appendChild(td);
+                });
+                corpo.appendChild(tr);
+            });
+
+            set("lcTotalAno", brl.format(linhas.reduce((soma, l) => soma + l.valorBolsa, 0)));
+        }
+
+        selectAno.addEventListener("change", desenharTabela);
+        desenharTabela();
     </script>
     <script src="menu.js"></script>
 </body>
