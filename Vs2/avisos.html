@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Avisos - ProBem</title>
+
+    <link rel="stylesheet" href="tipografia.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* =====================================================
+           AVISOS
+        ===================================================== */
+
+        .avisos-header {
+            margin-bottom: 14px;
+        }
+
+        .avisos-header h1 {
+            margin: 0;
+            font-size: var(--fs-2xl);
+            color: #2e2250;
+            font-weight: 700;
+        }
+
+        .avisos-header p {
+            margin: 4px 0 0;
+            font-size: var(--fs-xs);
+            color: #755d9f;
+        }
+
+
+        /* =====================================================
+           FILTROS
+        ===================================================== */
+
+        .avisos-filtros {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            margin-bottom: 15px;
+        }
+
+        .filtro {
+            border: 1px solid #e3ddee;
+
+            background: white;
+
+            color: #2e2250;
+
+            padding: 7px 14px;
+
+            border-radius: 18px;
+
+            font-size: var(--fs-xs);
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .filtro:hover {
+            border-color: #6a5496;
+            color: #6a5496;
+        }
+
+        .filtro.active {
+            background: #6a5496;
+            color: white;
+            border-color: #6a5496;
+        }
+
+
+        /* =====================================================
+           LISTA DE AVISOS
+        ===================================================== */
+
+        .avisos-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+
+        /* =====================================================
+           CARD DO AVISO
+        ===================================================== */
+
+        .aviso-card {
+            min-height: 86px;
+
+            background: white;
+
+            border: 1px solid #e5dff0;
+
+            border-radius: 8px;
+
+            padding: 12px 15px;
+
+            display: flex;
+            align-items: flex-start;
+
+            gap: 12px;
+
+            position: relative;
+        }
+
+
+        /* AVISO IMPORTANTE */
+
+        .aviso-card.importante {
+            border-left: 3px solid #6a5496;
+        }
+
+
+        /* =====================================================
+           ÍCONE
+        ===================================================== */
+
+        .aviso-icon {
+            width: 38px;
+            height: 38px;
+
+            border-radius: 7px;
+
+            background: #efebf7;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: var(--fs-lg);
+
+            flex-shrink: 0;
+        }
+
+
+        /* =====================================================
+           CONTEÚDO
+        ===================================================== */
+
+        .aviso-conteudo {
+            flex: 1;
+
+            min-width: 0;
+        }
+
+        .aviso-titulo {
+            margin: 1px 0 4px;
+
+            color: #2e2250;
+
+            font-size: var(--fs-xs);
+
+            font-weight: 700;
+        }
+
+        .aviso-descricao {
+            margin: 0;
+
+            color: #78619f;
+
+            font-size: var(--fs-xs);
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           CATEGORIA
+        ===================================================== */
+
+        .aviso-tag {
+            display: inline-block;
+
+            margin-top: 7px;
+
+            padding: 3px 7px;
+
+            border-radius: 10px;
+
+            font-size: var(--fs-xs);
+
+            font-weight: 600;
+
+            background: #efebf7;
+
+            color: #6a5496;
+        }
+
+        .aviso-tag.importante {
+            background: #fff1d7;
+            color: #c98500;
+        }
+
+        .aviso-tag.cursos {
+            background: #efebf7;
+            color: #6a5496;
+        }
+
+        .aviso-tag.bolsas {
+            background: #efebf7;
+            color: #6a5496;
+        }
+
+        .aviso-tag.sistema {
+            background: #eaf7ee;
+            color: #2c8a52;
+        }
+
+        .aviso-tag.oportunidades {
+            background: #efebf7;
+            color: #6a5496;
+        }
+
+
+        /* =====================================================
+           DATA
+        ===================================================== */
+
+        .aviso-data {
+            width: 85px;
+
+            text-align: right;
+
+            color: #8a7fa3;
+
+            font-size: var(--fs-xs);
+
+            padding-top: 2px;
+
+            flex-shrink: 0;
+        }
+
+
+        /* =====================================================
+           RESPONSIVO
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .avisos-filtros {
+                flex-wrap: wrap;
+            }
+
+            .aviso-card {
+                padding: 11px;
+            }
+
+            .aviso-data {
+                width: 70px;
+            }
+
+        }
+
+
+        @media (max-width: 550px) {
+
+            .aviso-card {
+                flex-wrap: wrap;
+            }
+
+            .aviso-data {
+                width: 100%;
+                text-align: left;
+                padding-left: 50px;
+                margin-top: -5px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- =====================================================
+         MENU LATERAL
+    ===================================================== -->
+
+    <aside class="sidebar"></aside>
+
+
+
+    <!-- =====================================================
+         ÁREA PRINCIPAL
+    ===================================================== -->
+
+    <main class="main">
+
+
+        <!-- =================================================
+             TOPO
+        ================================================= -->
+
+        <header class="topbar">
+
+
+            <div></div>
+
+
+            <div class="user">
+
+
+                <!-- SINO -->
+
+                <div class="notification">
+
+                    🔔
+
+                    <span>
+                        3
+                    </span>
+
+                </div>
+
+
+                <!-- AVATAR -->
+
+                <div class="avatar">
+
+                    JS
+
+                </div>
+
+
+                <!-- NOME -->
+
+                <span>
+                    João Silva
+                </span>
+
+
+                <!-- SETA -->
+
+                <span class="arrow">
+                    ⌄
+                </span>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =================================================
+             CONTEÚDO
+        ================================================= -->
+
+        <section class="content">
+
+
+            <!-- CABEÇALHO -->
+
+            <div class="avisos-header">
+
+                <h1>
+                    Avisos
+                </h1>
+
+                <p>
+                    Confira as principais informações e comunicados do ProBem.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FILTROS
+            ================================================= -->
+
+            <div class="avisos-filtros">
+
+
+                <button class="filtro active">
+                    Todos
+                </button>
+
+
+                <button class="filtro">
+                    Importantes
+                </button>
+
+
+                <button class="filtro">
+                    Bolsas
+                </button>
+
+
+                <button class="filtro">
+                    Atividades
+                </button>
+
+
+                <button class="filtro">
+                    Sistema
+                </button>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 LISTA
+            ================================================= -->
+
+            <div class="avisos-lista">
+
+
+                <!-- =================================================
+                     AVISO 1
+                ================================================= -->
+
+                <div class="aviso-card importante">
+
+
+                    <div class="aviso-icon">
+                        🔔
+                    </div>
+
+
+                    <div class="aviso-conteudo">
+
+
+                        <div class="aviso-titulo">
+                            Prazo para envio de documentos
+                        </div>
+
+
+                        <p class="aviso-descricao">
+
+                            Não se esqueça de enviar os documentos
+                            solicitados para manter sua participação
+                            no programa.
+
+                        </p>
+
+
+                        <span class="aviso-tag importante">
+                            Importante
+                        </span>
+
+
+                    </div>
+
+
+                    <div class="aviso-data">
+                        Hoje
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     AVISO 2
+                ================================================= -->
+
+                <div class="aviso-card">
+
+
+                    <div class="aviso-icon">
+                        🎓
+                    </div>
+
+
+                    <div class="aviso-conteudo">
+
+
+                        <div class="aviso-titulo">
+                            Novas Atividades disponíveis
+                        </div>
+
+
+                        <p class="aviso-descricao">
+
+                            Novas Atividades foram adicionados ao catálogo.
+                            Confira as opções disponíveis para você.
+
+                        </p>
+
+
+                        <span class="aviso-tag cursos">
+                            Atividades
+                        </span>
+
+
+                    </div>
+
+
+                    <div class="aviso-data">
+                        Ontem
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     AVISO 3
+                ================================================= -->
+
+                <div class="aviso-card">
+
+
+                    <div class="aviso-icon">
+                        💰
+                    </div>
+
+
+                    <div class="aviso-conteudo">
+
+
+                        <div class="aviso-titulo">
+                            Atualização sobre sua bolsa
+                        </div>
+
+
+                        <p class="aviso-descricao">
+
+                            Há uma nova informação relacionada à sua bolsa.
+                            Acesse a área de Bolsas para consultar os detalhes.
+
+                        </p>
+
+
+                        <span class="aviso-tag bolsas">
+                            Bolsas
+                        </span>
+
+
+                    </div>
+
+
+                    <div class="aviso-data">
+                        25/09/2026
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     AVISO 4
+                ================================================= -->
+
+                <div class="aviso-card">
+
+
+                    <div class="aviso-icon">
+                        ⚙️
+                    </div>
+
+
+                    <div class="aviso-conteudo">
+
+
+                        <div class="aviso-titulo">
+                            Atualização do sistema
+                        </div>
+
+
+                        <p class="aviso-descricao">
+
+                            O ProBem recebeu melhorias para facilitar
+                            sua navegação e acesso às informações.
+
+                        </p>
+
+
+                        <span class="aviso-tag sistema">
+                            Sistema
+                        </span>
+
+
+                    </div>
+
+
+                    <div class="aviso-data">
+                        23/09/2026
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     AVISO 5
+                ================================================= -->
+
+                <div class="aviso-card">
+
+
+                    <div class="aviso-icon">
+                        📢
+                    </div>
+
+
+                    <div class="aviso-conteudo">
+
+
+                        <div class="aviso-titulo">
+                            Novas oportunidades disponíveis
+                        </div>
+
+
+                        <p class="aviso-descricao">
+
+                            Confira as novas oportunidades de estágio,
+                            emprego e desenvolvimento profissional.
+
+                        </p>
+
+
+                        <span class="aviso-tag oportunidades">
+                            Oportunidades
+                        </span>
+
+
+                    </div>
+
+
+                    <div class="aviso-data">
+                        20/09/2026
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+
+    <script src="menu.js"></script>
+</body>
+
+</html>

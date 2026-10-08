@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ProBem - Pendências</title>
+
+    <link rel="stylesheet" href="tipografia.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* ================================
+           TÍTULO
+        ================================= */
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .title-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+
+            background: #efebf7;
+
+            display: grid;
+            place-items: center;
+
+            font-size: var(--fs-2xl);
+        }
+
+        .page-title h1 {
+            margin: 0;
+
+            color: #2e2250;
+
+            font-size: var(--fs-2xl);
+        }
+
+        .page-title p {
+            margin-top: 4px;
+
+            color: #75698f;
+
+            font-size: var(--fs-sm);
+        }
+
+
+        /* ================================
+           RESUMO
+        ================================= */
+
+        .pending-summary {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 16px;
+
+            margin-bottom: 24px;
+        }
+
+
+        .summary-card {
+            background: white;
+
+            border: 1px solid #e5dff0;
+
+            border-radius: 11px;
+
+            padding: 18px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            box-shadow:
+                0 6px 20px rgba(24, 70, 120, .04);
+        }
+
+
+        .summary-icon {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 10px;
+
+            display: grid;
+
+            place-items: center;
+
+            font-size: var(--fs-lg);
+        }
+
+
+        .summary-icon.red {
+            background: #fff0f0;
+        }
+
+
+        .summary-icon.yellow {
+            background: #fff7df;
+        }
+
+
+        .summary-icon.green {
+            background: #eaf8ef;
+        }
+
+
+        .summary-card strong {
+            display: block;
+
+            color: #2e2250;
+
+            font-size: var(--fs-xl);
+        }
+
+
+        .summary-card span {
+            color: #75698f;
+
+            font-size: var(--fs-xs);
+        }
+
+
+        /* ================================
+           BARRA DE FILTROS
+        ================================= */
+
+        .pending-toolbar {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 16px;
+        }
+
+
+        .pending-toolbar h2 {
+            margin: 0;
+
+            color: #2e2250;
+
+            font-size: var(--fs-lg);
+        }
+
+
+        .pending-filter {
+            padding: 9px 13px;
+
+            border: 1px solid #e5dff0;
+
+            border-radius: 8px;
+
+            background: white;
+
+            color: #5d5078;
+
+            font-size: var(--fs-xs);
+
+            outline: none;
+
+            cursor: pointer;
+        }
+
+
+        /* ================================
+           LISTA
+        ================================= */
+
+        .pending-list {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 13px;
+        }
+
+
+        /* ================================
+           CARD
+        ================================= */
+
+        .pending-card {
+            background: white;
+
+            border: 1px solid #e5dff0;
+
+            border-radius: 11px;
+
+            padding: 18px 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 16px;
+
+            box-shadow:
+                0 5px 18px rgba(24, 70, 120, .04);
+        }
+
+
+        .pending-status {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 10px;
+
+            display: grid;
+
+            place-items: center;
+
+            font-size: var(--fs-lg);
+
+            flex-shrink: 0;
+        }
+
+
+        .pending-status.red {
+            background: #fff0f0;
+        }
+
+
+        .pending-status.yellow {
+            background: #fff7df;
+        }
+
+
+        .pending-status.green {
+            background: #eaf8ef;
+        }
+
+
+        /* ================================
+           CONTEÚDO
+        ================================= */
+
+        .pending-info {
+            flex: 1;
+        }
+
+
+        .pending-info h3 {
+            margin: 0 0 5px;
+
+            color: #2e2250;
+
+            font-size: var(--fs-sm);
+        }
+
+
+        .pending-info p {
+            margin: 0;
+
+            color: #75698f;
+
+            font-size: var(--fs-xs);
+
+            line-height: 1.5;
+        }
+
+
+        .pending-date {
+            margin-top: 7px;
+
+            color: #9a90b0;
+
+            font-size: var(--fs-xs);
+        }
+
+
+        .pending-date strong {
+            color: #d14a4a;
+        }
+
+
+        /* ================================
+           ETIQUETA
+        ================================= */
+
+        .pending-label {
+            align-self: flex-start;
+
+            padding: 5px 9px;
+
+            border-radius: 6px;
+
+            font-size: var(--fs-xs);
+
+            font-weight: 700;
+        }
+
+
+        .pending-label.urgent {
+            background: #fff0f0;
+
+            color: #d14a4a;
+        }
+
+
+        .pending-label.attention {
+            background: #fff7df;
+
+            color: #ad7a00;
+        }
+
+
+        .pending-label.done {
+            background: #eaf8ef;
+
+            color: #32804b;
+        }
+
+
+        /* ================================
+           BOTÃO
+        ================================= */
+
+        .pending-button {
+            padding: 9px 14px;
+
+            border: 1px solid #6a5496;
+
+            border-radius: 7px;
+
+            background: #6a5496;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: var(--fs-xs);
+
+            font-weight: 700;
+
+            white-space: nowrap;
+
+            transition: .2s;
+        }
+
+
+        .pending-button:hover {
+            background: #54427d;
+
+            border-color: #54427d;
+        }
+
+
+        .pending-button.secondary {
+            background: white;
+
+            color: #6a5496;
+        }
+
+
+        .pending-button.secondary:hover {
+            background: #f1edf8;
+        }
+
+
+        /* ================================
+           RESPONSIVIDADE
+        ================================= */
+
+        @media (max-width: 900px) {
+
+            .pending-summary {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .pending-card {
+                flex-wrap: wrap;
+            }
+
+            .pending-info {
+                min-width: 70%;
+            }
+
+            .pending-button {
+                width: 100%;
+
+                text-align: center;
+            }
+
+            .pending-toolbar {
+                gap: 10px;
+
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- ================================
+         SIDEBAR
+    ================================= -->
+
+    <aside class="sidebar"></aside>
+
+
+
+    <!-- ================================
+         CONTEÚDO PRINCIPAL
+    ================================= -->
+
+    <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+
+            <div></div>
+
+
+            <div class="user">
+
+
+                <div class="notification">
+
+                    🔔
+
+                    <span>
+                        3
+                    </span>
+
+                </div>
+
+
+                <div class="avatar">
+                    JS
+                </div>
+
+
+                <strong>
+                    João Silva
+                </strong>
+
+
+                <span class="arrow">
+                    ⌄
+                </span>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- CONTEÚDO -->
+
+        <section class="content">
+
+
+            <!-- TÍTULO -->
+
+            <div class="page-title">
+
+
+                <div class="title-icon">
+                    📋
+                </div>
+
+
+                <div>
+
+                    <h1>
+                        Pendências
+                    </h1>
+
+                    <p>
+                        Acompanhe tudo o que precisa ser resolvido no seu cadastro.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================================
+                 RESUMO
+            ================================= -->
+
+            <div class="pending-summary">
+
+
+                <div class="summary-card">
+
+
+                    <div class="summary-icon red">
+                        🔴
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            2
+                        </strong>
+
+                        <span>
+                            Pendências em aberto
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="summary-card">
+
+
+                    <div class="summary-icon yellow">
+                        ⚠️
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            1
+                        </strong>
+
+                        <span>
+                            Próxima do prazo
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="summary-card">
+
+
+                    <div class="summary-icon green">
+                        ✓
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            4
+                        </strong>
+
+                        <span>
+                            Resolvidas este período
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================================
+                 CABEÇALHO DA LISTA
+            ================================= -->
+
+            <div class="pending-toolbar">
+
+
+                <h2>
+                    Suas pendências
+                </h2>
+
+
+                <select class="pending-filter">
+
+                    <option>
+                        Todas
+                    </option>
+
+                    <option>
+                        Em aberto
+                    </option>
+
+                    <option>
+                        Próximas do prazo
+                    </option>
+
+                    <option>
+                        Resolvidas
+                    </option>
+
+                </select>
+
+
+            </div>
+
+
+
+            <!-- ================================
+                 LISTA DE PENDÊNCIAS
+            ================================= -->
+
+            <div class="pending-list">
+
+
+
+                <!-- PENDÊNCIA 1 -->
+
+                <article class="pending-card">
+
+
+                    <div class="pending-status red">
+                        📄
+                    </div>
+
+
+                    <div class="pending-info">
+
+
+                        <h3>
+                            Envio de comprovante de matrícula
+                        </h3>
+
+
+                        <p>
+                            É necessário enviar um comprovante de matrícula atualizado para manter seu cadastro regularizado.
+                        </p>
+
+
+                        <div class="pending-date">
+
+                            Prazo:
+                            <strong>
+                                30/09/2026
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <span class="pending-label urgent">
+                        URGENTE
+                    </span>
+
+
+                    <a href="#" class="pending-button">
+                        Resolver
+                    </a>
+
+
+                </article>
+
+
+
+                <!-- PENDÊNCIA 2 -->
+
+                <article class="pending-card">
+
+
+                    <div class="pending-status yellow">
+                        🪪
+                    </div>
+
+
+                    <div class="pending-info">
+
+
+                        <h3>
+                            Atualização dos dados pessoais
+                        </h3>
+
+
+                        <p>
+                            Revise seus dados pessoais e confirme se as informações cadastradas estão corretas.
+                        </p>
+
+
+                        <div class="pending-date">
+
+                            Prazo:
+                            <strong>
+                                05/10/2026
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <span class="pending-label attention">
+                        ATENÇÃO
+                    </span>
+
+
+                    <a href="#" class="pending-button">
+                        Atualizar
+                    </a>
+
+
+                </article>
+
+
+
+                <!-- PENDÊNCIA 3 -->
+
+                <article class="pending-card">
+
+
+                    <div class="pending-status green">
+                        ✓
+                    </div>
+
+
+                    <div class="pending-info">
+
+
+                        <h3>
+                            Termo de compromisso
+                        </h3>
+
+
+                        <p>
+                            Termo de compromisso referente à sua bolsa de estudos.
+                        </p>
+
+
+                        <div class="pending-date">
+
+                            Resolvido em:
+                            <strong style="color: #32804b;">
+                                22/09/2026
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <span class="pending-label done">
+                        RESOLVIDA
+                    </span>
+
+
+                    <a href="#" class="pending-button secondary">
+                        Visualizar
+                    </a>
+
+
+                </article>
+
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+
+    <script src="menu.js"></script>
+</body>
+
+</html>

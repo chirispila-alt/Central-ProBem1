@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ProBem - Atividade</title>
+
+    <link rel="stylesheet" href="tipografia.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* ================================
+           TÍTULO DA PÁGINA
+        ================================= */
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .title-icon {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 12px;
+
+            background: #efebf7;
+
+            display: grid;
+            place-items: center;
+
+            font-size: var(--fs-2xl);
+        }
+
+        .page-title h1 {
+            margin: 0;
+
+            color: #2e2250;
+
+            font-size: var(--fs-2xl);
+        }
+
+        .page-title p {
+            margin-top: 4px;
+
+            color: #75698f;
+
+            font-size: var(--fs-sm);
+        }
+
+
+        /* ================================
+           BARRA DE BUSCA
+        ================================= */
+
+        .courses-toolbar {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .search-box {
+            flex: 1;
+
+            position: relative;
+        }
+
+
+        .search-box span {
+            position: absolute;
+
+            left: 15px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            font-size: var(--fs-lg);
+
+            color: #8a7fa3;
+        }
+
+
+        .search-box input {
+            width: 100%;
+
+            box-sizing: border-box;
+
+            padding: 13px 16px 13px 44px;
+
+            border: 1px solid #e5dff0;
+
+            border-radius: 9px;
+
+            outline: none;
+
+            background: white;
+
+            color: #2e2250;
+
+            font-size: var(--fs-sm);
+        }
+
+
+        .search-box input:focus {
+            border-color: #6a5496;
+
+            box-shadow: 0 0 0 3px rgba(106, 84, 150, .08);
+        }
+
+
+        /* ================================
+           FILTROS
+        ================================= */
+
+        .course-filter {
+            padding: 12px 15px;
+
+            border: 1px solid #e5dff0;
+
+            border-radius: 9px;
+
+            background: white;
+
+            color: #5d5078;
+
+            font-size: var(--fs-sm);
+
+            cursor: pointer;
+
+            outline: none;
+        }
+
+
+        /* ================================
+           ÁREA DOS Atividade
+        ================================= */
+
+        .courses-section-title {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 15px;
+        }
+
+
+        .courses-section-title h2 {
+            margin: 0;
+
+            color: #2e2250;
+
+            font-size: var(--fs-lg);
+        }
+
+
+        .courses-section-title span {
+            color: #75698f;
+
+            font-size: var(--fs-xs);
+        }
+
+
+        /* ================================
+           GRID DE Atividade
+        ================================= */
+
+        .courses-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+
+        /* ================================
+           CARD DO CURSO
+        ================================= */
+
+        .course-card {
+            background: white;
+
+            border: 1px solid #e5dff0;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 6px 20px rgba(24, 70, 120, .05);
+
+            transition: .2s;
+        }
+
+
+        .course-card:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 10px 25px rgba(24, 70, 120, .09);
+        }
+
+
+        /* ================================
+           TOPO DO CARD
+        ================================= */
+
+        .course-image {
+            height: 110px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #efebf7,
+                    #e3dcee
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: var(--fs-display);
+        }
+
+
+        /* ================================
+           CONTEÚDO DO CARD
+        ================================= */
+
+        .course-content {
+            padding: 18px;
+        }
+
+
+        .course-category {
+            display: inline-block;
+
+            padding: 5px 9px;
+
+            background: #f1edf8;
+
+            color: #6a5496;
+
+            border-radius: 6px;
+
+            font-size: var(--fs-xs);
+
+            font-weight: 700;
+
+            margin-bottom: 10px;
+        }
+
+
+        .course-content h3 {
+            margin: 0 0 7px;
+
+            color: #2e2250;
+
+            font-size: var(--fs-md);
+
+            line-height: 1.3;
+        }
+
+
+        .course-institution {
+            color: #75698f;
+
+            font-size: var(--fs-xs);
+
+            margin-bottom: 14px;
+        }
+
+
+        /* ================================
+           INFORMAÇÕES
+        ================================= */
+
+        .course-info {
+            display: flex;
+
+            gap: 14px;
+
+            padding-top: 12px;
+
+            border-top: 1px solid #eee9f5;
+
+            margin-bottom: 15px;
+        }
+
+
+        .course-info div {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 3px;
+        }
+
+
+        .course-info span {
+            color: #9a90b0;
+
+            font-size: var(--fs-xs);
+        }
+
+
+        .course-info strong {
+            color: #4e3874;
+
+            font-size: var(--fs-xs);
+        }
+
+
+        /* ================================
+           BOTÃO
+        ================================= */
+
+        .course-button {
+            display: block;
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+            padding: 10px;
+
+            border: 1px solid #6a5496;
+
+            border-radius: 7px;
+
+            background: #6a5496;
+
+            color: white;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            font-size: var(--fs-xs);
+
+            font-weight: 700;
+
+            transition: .2s;
+        }
+
+
+        .course-button:hover {
+            background: #54427d;
+
+            border-color: #54427d;
+        }
+
+
+        /* ================================
+           RESPONSIVIDADE
+        ================================= */
+
+        @media (max-width: 1000px) {
+
+            .courses-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .courses-toolbar {
+                flex-direction: column;
+
+                align-items: stretch;
+            }
+
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- ================================
+         SIDEBAR
+    ================================= -->
+
+    <aside class="sidebar"></aside>
+
+
+
+    <!-- ================================
+         ÁREA PRINCIPAL
+    ================================= -->
+
+    <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+
+            <div></div>
+
+
+            <div class="user">
+
+
+                <div class="notification">
+
+                    🔔
+
+                    <span>
+                        3
+                    </span>
+
+                </div>
+
+
+                <div class="avatar">
+                    JS
+                </div>
+
+
+                <strong>
+                    João Silva
+                </strong>
+
+
+                <span class="arrow">
+                    ⌄
+                </span>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- CONTEÚDO -->
+
+        <section class="content">
+
+
+            <!-- TÍTULO -->
+
+            <div class="page-title">
+
+
+                <div class="title-icon">
+                    🎓
+                </div>
+
+
+                <div>
+
+                    <h1>
+                        Atividade
+                    </h1>
+
+                    <p>
+                        Encontre Atividade e oportunidades para desenvolver suas habilidades.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- BUSCA E FILTRO -->
+
+            <div class="courses-toolbar">
+
+
+                <div class="search-box">
+
+                    <span>
+                        🔎
+                    </span>
+
+                    <input
+                        type="text"
+                        placeholder="Buscar por curso..."
+                    >
+
+                </div>
+
+
+                <select class="course-filter">
+
+                    <option>
+                        Todas as categorias
+                    </option>
+
+                    <option>
+                        Tecnologia
+                    </option>
+
+                    <option>
+                        Administração
+                    </option>
+
+                    <option>
+                        Comunicação
+                    </option>
+
+                    <option>
+                        Saúde
+                    </option>
+
+                </select>
+
+
+            </div>
+
+
+
+            <!-- TÍTULO DOS Atividade -->
+
+            <div class="courses-section-title">
+
+                <h2>
+                    Atividade disponíveis
+                </h2>
+
+                <span>
+                    6 Atividade encontrados
+                </span>
+
+            </div>
+
+
+
+            <!-- ================================
+                 Atividade
+            ================================= -->
+
+            <div class="courses-grid">
+
+
+
+                <!-- CURSO 1 -->
+
+                <article class="course-card">
+
+
+                    <div class="course-image">
+                        💻
+                    </div>
+
+
+                    <div class="course-content">
+
+
+                        <span class="course-category">
+                            Tecnologia
+                        </span>
+
+
+                        <h3>
+                            Introdução à Programação
+                        </h3>
+
+
+                        <div class="course-institution">
+                            ProBem
+                        </div>
+
+
+                        <div class="course-info">
+
+
+                            <div>
+
+                                <span>
+                                    Modalidade
+                                </span>
+
+                                <strong>
+                                    Online
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Duração
+                                </span>
+
+                                <strong>
+                                    40 horas
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <a href="#" class="course-button">
+                            Ver curso
+                        </a>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- CURSO 2 -->
+
+                <article class="course-card">
+
+
+                    <div class="course-image">
+                        📊
+                    </div>
+
+
+                    <div class="course-content">
+
+
+                        <span class="course-category">
+                            Administração
+                        </span>
+
+
+                        <h3>
+                            Gestão e Empreendedorismo
+                        </h3>
+
+
+                        <div class="course-institution">
+                            ProBem
+                        </div>
+
+
+                        <div class="course-info">
+
+
+                            <div>
+
+                                <span>
+                                    Modalidade
+                                </span>
+
+                                <strong>
+                                    Online
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Duração
+                                </span>
+
+                                <strong>
+                                    30 horas
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <a href="#" class="course-button">
+                            Ver curso
+                        </a>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- CURSO 3 -->
+
+                <article class="course-card">
+
+
+                    <div class="course-image">
+                        🎨
+                    </div>
+
+
+                    <div class="course-content">
+
+
+                        <span class="course-category">
+                            Comunicação
+                        </span>
+
+
+                        <h3>
+                            Comunicação e Oratória
+                        </h3>
+
+
+                        <div class="course-institution">
+                            ProBem
+                        </div>
+
+
+                        <div class="course-info">
+
+
+                            <div>
+
+                                <span>
+                                    Modalidade
+                                </span>
+
+                                <strong>
+                                    Presencial
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Duração
+                                </span>
+
+                                <strong>
+                                    20 horas
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <a href="#" class="course-button">
+                            Ver curso
+                        </a>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- CURSO 4 -->
+
+                <article class="course-card">
+
+
+                    <div class="course-image">
+                        🩺
+                    </div>
+
+
+                    <div class="course-content">
+
+
+                        <span class="course-category">
+                            Saúde
+                        </span>
+
+
+                        <h3>
+                            Primeiros Socorros
+                        </h3>
+
+
+                        <div class="course-institution">
+                            ProBem
+                        </div>
+
+
+                        <div class="course-info">
+
+
+                            <div>
+
+                                <span>
+                                    Modalidade
+                                </span>
+
+                                <strong>
+                                    Presencial
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Duração
+                                </span>
+
+                                <strong>
+                                    15 horas
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <a href="#" class="course-button">
+                            Ver curso
+                        </a>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- CURSO 5 -->
+
+                <article class="course-card">
+
+
+                    <div class="course-image">
+                        🌐
+                    </div>
+
+
+                    <div class="course-content">
+
+
+                        <span class="course-category">
+                            Tecnologia
+                        </span>
+
+
+                        <h3>
+                            Desenvolvimento Web
+                        </h3>
+
+
+                        <div class="course-institution">
+                            ProBem
+                        </div>
+
+
+                        <div class="course-info">
+
+
+                            <div>
+
+                                <span>
+                                    Modalidade
+                                </span>
+
+                                <strong>
+                                    Online
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Duração
+                                </span>
+
+                                <strong>
+                                    60 horas
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <a href="#" class="course-button">
+                            Ver curso
+                        </a>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- CURSO 6 -->
+
+                <article class="course-card">
+
+
+                    <div class="course-image">
+                        💼
+                    </div>
+
+
+                    <div class="course-content">
+
+
+                        <span class="course-category">
+                            Administração
+                        </span>
+
+
+                        <h3>
+                            Preparação para o Mercado de Trabalho
+                        </h3>
+
+
+                        <div class="course-institution">
+                            ProBem
+                        </div>
+
+
+                        <div class="course-info">
+
+
+                            <div>
+
+                                <span>
+                                    Modalidade
+                                </span>
+
+                                <strong>
+                                    Online
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Duração
+                                </span>
+
+                                <strong>
+                                    25 horas
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <a href="#" class="course-button">
+                            Ver curso
+                        </a>
+
+
+                    </div>
+
+
+                </article>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+
+    <script src="menu.js"></script>
+</body>
+
+</html>
