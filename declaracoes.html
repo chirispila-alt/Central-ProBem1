@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Declarações - ProBem</title>
+
+    <!-- CSS PRINCIPAL DO PROJETO -->
+    <link rel="stylesheet" href="tipografia.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =====================================================
+           DECLARAÇÕES
+        ===================================================== */
+
+        .declaracoes-header {
+            margin-bottom: 14px;
+        }
+
+        .declaracoes-header h1 {
+            margin: 0;
+
+            font-size: var(--fs-2xl);
+
+            color: #2e2250;
+
+            font-weight: 700;
+        }
+
+        .declaracoes-header p {
+            margin: 4px 0 0;
+
+            font-size: var(--fs-xs);
+
+            color: #755d9f;
+        }
+
+
+        /* =====================================================
+           CARD PRINCIPAL
+        ===================================================== */
+
+        .declaracao-card {
+
+            background: white;
+
+            border: 1px solid #e5dff0;
+
+            border-radius: 8px;
+
+            padding: 18px;
+
+            margin-bottom: 12px;
+        }
+
+
+        /* =====================================================
+           CABEÇALHO DO CARD
+        ===================================================== */
+
+        .declaracao-topo {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 12px;
+
+            margin-bottom: 16px;
+        }
+
+
+        .declaracao-icon {
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 8px;
+
+            background: #efebf7;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: var(--fs-lg);
+
+            flex-shrink: 0;
+        }
+
+
+        .declaracao-titulo {
+
+            flex: 1;
+        }
+
+
+        .declaracao-titulo h2 {
+
+            margin: 0;
+
+            font-size: var(--fs-sm);
+
+            color: #2e2250;
+        }
+
+
+        .declaracao-titulo p {
+
+            margin: 4px 0 0;
+
+            font-size: var(--fs-xs);
+
+            color: #75698f;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           STATUS
+        ===================================================== */
+
+        .declaracao-status {
+
+            padding: 5px 9px;
+
+            border-radius: 10px;
+
+            background: #e8f7ee;
+
+            color: #2c8a52;
+
+            font-size: var(--fs-xs);
+
+            font-weight: 600;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           PERÍODOS
+        ===================================================== */
+
+        .periodo-titulo {
+
+            color: #6a5496;
+
+            font-size: var(--fs-xs);
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+        }
+
+
+        .periodos {
+
+            display: flex;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .periodo {
+
+            border: 1px solid #e3ddee;
+
+            background: white;
+
+            color: #2e2250;
+
+            padding: 8px 15px;
+
+            border-radius: 7px;
+
+            font-size: var(--fs-xs);
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+
+        .periodo:hover {
+
+            border-color: #6a5496;
+
+            color: #6a5496;
+        }
+
+
+        .periodo.active {
+
+            background: #6a5496;
+
+            color: white;
+
+            border-color: #6a5496;
+        }
+
+
+        /* =====================================================
+           INFORMAÇÕES DO BENEFICIÁRIO
+        ===================================================== */
+
+        .informacoes {
+
+            margin-top: 18px;
+
+            padding-top: 16px;
+
+            border-top: 1px solid #eee9f5;
+        }
+
+
+        .informacoes-titulo {
+
+            color: #6a5496;
+
+            font-size: var(--fs-xs);
+
+            font-weight: bold;
+
+            margin-bottom: 9px;
+        }
+
+
+        .informacoes-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 8px;
+        }
+
+
+        .informacao {
+
+            background: #faf8fd;
+
+            border: 1px solid #ebe7f3;
+
+            border-radius: 6px;
+
+            padding: 10px;
+        }
+
+
+        .informacao span {
+
+            display: block;
+
+            color: #8a7fa3;
+
+            font-size: var(--fs-xs);
+
+            margin-bottom: 4px;
+
+            text-transform: uppercase;
+        }
+
+
+        .informacao strong {
+
+            display: block;
+
+            color: #2e2250;
+
+            font-size: var(--fs-xs);
+        }
+
+
+        /* =====================================================
+           BOTÕES
+        ===================================================== */
+
+        .declaracao-acoes {
+
+            display: flex;
+
+            gap: 8px;
+
+            margin-top: 16px;
+        }
+
+
+        .declaracao-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 8px 13px;
+
+            border-radius: 6px;
+
+            font-size: var(--fs-xs);
+
+            font-weight: 600;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+            border: none;
+
+            transition: .2s;
+        }
+
+
+        .declaracao-button.principal {
+
+            background: #6a5496;
+
+            color: white;
+        }
+
+
+        .declaracao-button.principal:hover {
+
+            background: #654896;
+        }
+
+
+        .declaracao-button.secundario {
+
+            background: #efebf7;
+
+            color: #6a5496;
+
+            border: 1px solid #e6e1f0;
+        }
+
+
+        .declaracao-button.secundario:hover {
+
+            background: #e6dff2;
+        }
+
+
+        /* =====================================================
+           INFORMAÇÃO
+        ===================================================== */
+
+        .declaracao-info {
+
+            background: #f6f4f9;
+
+            border-left: 3px solid #6a5496;
+
+            border-radius: 5px;
+
+            padding: 11px 13px;
+
+            margin-top: 12px;
+        }
+
+
+        .declaracao-info strong {
+
+            display: block;
+
+            color: #2e2250;
+
+            font-size: var(--fs-xs);
+
+            margin-bottom: 4px;
+        }
+
+
+        .declaracao-info p {
+
+            margin: 0;
+
+            color: #75698f;
+
+            font-size: var(--fs-xs);
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           RESPONSIVO
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .informacoes-grid {
+
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 550px) {
+
+            .declaracao-topo {
+
+                flex-wrap: wrap;
+            }
+
+
+            .declaracao-status {
+
+                margin-left: 54px;
+            }
+
+
+            .informacoes-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .declaracao-acoes {
+
+                flex-direction: column;
+            }
+
+
+            .declaracao-button {
+
+                width: 100%;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="app">
+
+
+        <!-- =====================================================
+         MENU LATERAL
+    ===================================================== -->
+
+        <aside class="sidebar"></aside>
+
+
+
+        <!-- =====================================================
+         ÁREA PRINCIPAL
+    ===================================================== -->
+
+        <main class="main">
+
+
+            <!-- =================================================
+             TOPO
+        ================================================= -->
+
+            <header class="topbar">
+
+
+                <div></div>
+
+
+                <div class="user">
+
+
+                    <!-- SINO -->
+
+                    <div class="notification">
+
+                        🔔
+
+                        <span>
+                            3
+                        </span>
+
+                    </div>
+
+
+                    <!-- AVATAR -->
+
+                    <div class="avatar">
+
+                        JS
+
+                    </div>
+
+
+                    <!-- NOME -->
+
+                    <span>
+                        João Silva
+                    </span>
+
+
+                    <!-- SETA -->
+
+                    <span class="arrow">
+                        ⌄
+                    </span>
+
+
+                </div>
+
+
+            </header>
+
+
+
+            <!-- =================================================
+             CONTEÚDO
+        ================================================= -->
+
+            <section class="content">
+
+
+                <!-- TÍTULO -->
+
+                <div class="declaracoes-header">
+
+                    <h1>
+                        Declarações de Vínculo
+                    </h1>
+
+                    <p>
+                        Consulte e emita suas declarações de vínculo com o ProBem.
+                    </p>
+
+                </div>
+
+
+
+                <!-- =================================================
+                 DECLARAÇÃO
+            ================================================= -->
+
+                <div class="declaracao-card">
+
+
+                    <!-- CABEÇALHO -->
+
+                    <div class="declaracao-topo">
+
+
+                        <div class="declaracao-icon">
+
+                            📄
+
+                        </div>
+
+
+                        <div class="declaracao-titulo">
+
+                            <h2>
+                                Declaração de Vínculo
+                            </h2>
+
+                            <p>
+                                Selecione o período para consultar as informações
+                                referentes ao seu vínculo com o programa.
+                            </p>
+
+                        </div>
+
+
+                        <div class="declaracao-status">
+
+                            VÍNCULO ATIVO
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- PERÍODOS -->
+
+                    <div class="periodo-titulo">
+
+                        PERÍODO DA DECLARAÇÃO
+
+                    </div>
+
+
+                    <div class="periodos">
+
+
+                        <button class="periodo" onclick="selecionarPeriodo(this, '2025-1')">
+
+                            2025-1
+
+                        </button>
+
+
+                        <button class="periodo" onclick="selecionarPeriodo(this, '2025-2')">
+
+                            2025-2
+
+                        </button>
+
+
+                        <button class="periodo active" onclick="selecionarPeriodo(this, '2026-1')">
+
+                            2026-1
+
+                        </button>
+
+
+                        <button class="periodo" onclick="selecionarPeriodo(this, '2026-2')">
+
+                            2026-2
+
+                        </button>
+
+
+                    </div>
+
+
+
+                    <!-- INFORMAÇÕES -->
+
+                    <div class="informacoes">
+
+
+                        <div class="informacoes-titulo">
+
+                            INFORMAÇÕES DO BENEFICIÁRIO
+
+                        </div>
+
+
+                        <div class="informacoes-grid">
+
+
+                            <div class="informacao">
+
+                                <span>
+                                    Beneficiário
+                                </span>
+
+                                <strong>
+                                    João Silva
+                                </strong>
+
+                            </div>
+
+
+                            <div class="informacao">
+
+                                <span>
+                                    CPF
+                                </span>
+
+                                <strong>
+                                    ***.***.***-**
+                                </strong>
+
+                            </div>
+
+
+                            <div class="informacao">
+
+                                <span>
+                                    Programa
+                                </span>
+
+                                <strong>
+                                    ProBem
+                                </strong>
+
+                            </div>
+
+
+                            <div class="informacao">
+
+                                <span>
+                                    Período
+                                </span>
+
+                                <strong id="periodoSelecionado">
+                                    2026-1
+                                </strong>
+
+                            </div>
+
+
+                            <div class="informacao">
+
+                                <span>
+                                    Situação
+                                </span>
+
+                                <strong>
+                                    Vínculo ativo
+                                </strong>
+
+                            </div>
+
+
+                            <div class="informacao">
+
+                                <span>
+                                    Tipo de vínculo
+                                </span>
+
+                                <strong>
+                                    Beneficiário
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- AÇÕES -->
+
+                    <div class="declaracao-acoes">
+
+
+                        <button class="declaracao-button principal" onclick="visualizarDeclaracao()">
+
+                            👁 Visualizar declaração
+
+                        </button>
+
+
+                        <button class="declaracao-button secundario" onclick="emitirDeclaracao()">
+
+                            📥 Emitir declaração
+
+                        </button>
+
+
+                    </div>
+
+
+
+                    <!-- INFORMAÇÃO -->
+
+                    <div class="declaracao-info">
+
+
+                        <strong>
+                            ℹ INFORMAÇÃO
+                        </strong>
+
+
+                        <p>
+                            Selecione o período correspondente para consultar
+                            a declaração de vínculo. A declaração apresenta
+                            as informações relacionadas ao vínculo do beneficiário
+                            no período selecionado.
+                        </p>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+
+    <script>
+
+
+        /* =====================================================
+           SELEÇÃO DO PERÍODO
+        ===================================================== */
+
+        function selecionarPeriodo(botao, periodo) {
+
+
+            const botoes =
+                document.querySelectorAll(".periodo");
+
+
+            botoes.forEach(function (item) {
+
+                item.classList.remove("active");
+
+            });
+
+
+            botao.classList.add("active");
+
+
+            document.getElementById(
+                "periodoSelecionado"
+            ).textContent = periodo;
+
+
+        }
+
+
+
+        /* =====================================================
+           VISUALIZAR DECLARAÇÃO
+        ===================================================== */
+
+        function visualizarDeclaracao() {
+            window.open(
+                "http://10.237.0.105:8080/bolsistas/bolsistas/declaracao",
+                "_blank"
+            );
+        }
+
+
+
+        /* =====================================================
+           EMITIR DECLARAÇÃO
+        ===================================================== */
+
+        function emitirDeclaracao() {
+
+
+            const periodo =
+                document.getElementById(
+                    "periodoSelecionado"
+                ).textContent;
+
+
+            alert(
+                "A Declaração de Vínculo do período " +
+                periodo +
+                " será emitida em PDF."
+            );
+
+
+        }
+
+    </script>
+
+
+    <script src="menu.js"></script>
+</body>
+
+</html>

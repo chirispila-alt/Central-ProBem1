@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ProBem - Meu Perfil</title>
+
+    <link rel="stylesheet" href="tipografia.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* ================================
+           TÍTULO DA PÁGINA
+        ================================= */
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .title-icon {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 12px;
+
+            background: #efebf7;
+
+            display: grid;
+            place-items: center;
+
+            font-size: var(--fs-2xl);
+        }
+
+        .page-title h1 {
+            margin: 0;
+
+            color: #2e2250;
+
+            font-size: var(--fs-2xl);
+        }
+
+        .page-title p {
+            margin-top: 4px;
+
+            color: #75698f;
+
+            font-size: var(--fs-sm);
+        }
+
+
+        /* ================================
+           PAINEL DO PERFIL
+        ================================= */
+
+        .profile-panel {
+            background: white;
+
+            border: 1px solid #e5dff0;
+
+            border-radius: 12px;
+
+            padding: 28px;
+
+            box-shadow:
+                0 8px 25px rgba(24, 70, 120, .05);
+        }
+
+
+        /* ================================
+           CABEÇALHO DO PERFIL
+        ================================= */
+
+        .profile-header {
+            display: flex;
+
+            align-items: center;
+
+            gap: 16px;
+        }
+
+
+        .profile-avatar {
+            width: 64px;
+            height: 64px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #efebf7,
+                    #dad1e9
+                );
+
+            color: #6a5496;
+
+            display: grid;
+
+            place-items: center;
+
+            font-size: var(--fs-lg);
+
+            font-weight: 800;
+        }
+
+
+        .profile-header h2 {
+            margin: 0;
+
+            color: #2e2250;
+
+            font-size: var(--fs-xl);
+        }
+
+
+        .profile-header p {
+            margin-top: 4px;
+
+            color: #7e6ba0;
+
+            font-size: var(--fs-xs);
+        }
+
+
+        /* ================================
+           BOTÃO EDITAR
+        ================================= */
+
+        .edit-profile {
+            margin-left: auto;
+
+            border: 1px solid #6a5496;
+
+            background: white;
+
+            color: #6a5496;
+
+            padding: 10px 17px;
+
+            border-radius: 7px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+
+        .edit-profile:hover {
+            background: #6a5496;
+
+            color: white;
+        }
+
+
+        /* ================================
+           DIVISÓRIA
+        ================================= */
+
+        .profile-divider {
+            height: 1px;
+
+            background: #e6e1f0;
+
+            margin: 26px 0;
+        }
+
+
+        /* ================================
+           TÍTULOS DAS SEÇÕES
+        ================================= */
+
+        .profile-panel h3 {
+            color: #2e2250;
+
+            font-size: var(--fs-lg);
+
+            margin-top: 0;
+
+            margin-bottom: 17px;
+        }
+
+
+        /* ================================
+           GRID DOS DADOS
+        ================================= */
+
+        .profile-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 14px 20px;
+        }
+
+
+        /* ================================
+           CAMPOS
+        ================================= */
+
+        .profile-field {
+            background: #faf8fd;
+
+            border: 1px solid #eae5f2;
+
+            border-radius: 8px;
+
+            padding: 14px 16px;
+        }
+
+
+        .profile-field span {
+            display: block;
+
+            color: #8270a2;
+
+            font-size: var(--fs-xs);
+
+            margin-bottom: 6px;
+        }
+
+
+        .profile-field strong {
+            color: #2e2250;
+
+            font-size: var(--fs-sm);
+        }
+
+
+        /* ================================
+           RESPONSIVIDADE
+        ================================= */
+
+        @media (max-width: 700px) {
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-header {
+                flex-wrap: wrap;
+            }
+
+            .edit-profile {
+                margin-left: 0;
+
+                width: 100%;
+            }
+
+        }
+
+
+        /* ================================
+           MODAL DE EDIÇÃO
+        ================================= */
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(9, 31, 64, 0.65);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 16px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-card {
+            background: #ffffff;
+            border-radius: 14px;
+            width: 100%;
+            max-width: 640px;
+            box-shadow: 0 20px 50px rgba(7, 31, 64, 0.3);
+            border: 1px solid #e5dfef;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
+            animation: modalFadeIn 0.25s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.96) translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px;
+            border-bottom: 1px solid #e5dff0;
+            background: #faf8fd;
+        }
+
+        .modal-header-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: #efebf7;
+            display: grid;
+            place-items: center;
+            font-size: var(--fs-lg);
+        }
+
+        .modal-header h2 {
+            font-size: var(--fs-lg);
+            color: #2e2250;
+            margin: 0;
+        }
+
+        .modal-header p {
+            font-size: var(--fs-xs);
+            color: #75698f;
+            margin: 3px 0 0 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: var(--fs-xl);
+            color: #9e8fb8;
+            cursor: pointer;
+            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            transition: .2s;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            background: #eeeaf5;
+            color: #2e2250;
+        }
+
+        .modal-notice {
+            margin: 16px 24px 6px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            background: #f5f2fa;
+            border: 1px solid #d9d0ea;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: var(--fs-xs);
+            color: #412f61;
+            line-height: 1.45;
+        }
+
+        .modal-notice .notice-icon {
+            font-size: var(--fs-md);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .modal-body {
+            padding: 16px 24px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .form-section-title {
+            font-size: var(--fs-xs);
+            font-weight: 700;
+            color: #2e2250;
+            margin: 10px 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: var(--fs-xs);
+            font-weight: 700;
+            color: #5d5078;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .locked-tag {
+            font-size: var(--fs-xs);
+            font-weight: 600;
+            color: #9285a9;
+            background: #ebe7f2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            letter-spacing: 0;
+            text-transform: none;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 9px 12px;
+            font-size: var(--fs-sm);
+            border: 1px solid #d8cfe8;
+            border-radius: 7px;
+            color: #2e2250;
+            background: #ffffff;
+            transition: .2s;
+            font-family: inherit;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #6a5496;
+            box-shadow: 0 0 0 3px rgba(106, 84, 150, 0.15);
+        }
+
+        .form-group.disabled input {
+            background: #f4f1f8;
+            color: #8d7fa6;
+            border-color: #e2dceb;
+            cursor: not-allowed;
+            user-select: none;
+        }
+
+        .modal-footer {
+            padding: 14px 24px;
+            border-top: 1px solid #e5dff0;
+            background: #faf8fd;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .modal-footer-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: auto;
+        }
+
+        .btn-save {
+            background: #6a5496;
+            color: #ffffff;
+            border: none;
+            padding: 9px 18px;
+            border-radius: 7px;
+            font-size: var(--fs-sm);
+            font-weight: 700;
+            cursor: pointer;
+            transition: .2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-save:hover {
+            background: #60458e;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(106, 84, 150, 0.25);
+        }
+
+        .btn-cancel {
+            background: #ffffff;
+            color: #6d5a8f;
+            border: 1px solid #d6cce6;
+            padding: 9px 16px;
+            border-radius: 7px;
+            font-size: var(--fs-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .btn-cancel:hover {
+            background: #f4f1f8;
+            color: #2e2250;
+        }
+
+        .btn-restore {
+            background: transparent;
+            color: #8876a6;
+            border: none;
+            font-size: var(--fs-xs);
+            font-weight: 600;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: .2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-restore:hover {
+            color: #d93838;
+            background: #fee8e8;
+        }
+
+        /* ================================
+           TOAST DE NOTIFICAÇÃO
+        ================================= */
+
+        .toast-notification {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #2e2250;
+            color: #ffffff;
+            padding: 14px 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(10, 35, 70, 0.25);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: var(--fs-sm);
+            font-weight: 600;
+            z-index: 10000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .toast-notification.show {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .toast-notification .toast-icon {
+            font-size: var(--fs-md);
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .modal-footer-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+            .btn-restore {
+                text-align: center;
+                justify-content: center;
+            }
+            .toast-notification {
+                left: 16px;
+                right: 16px;
+                bottom: 16px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- ================================
+         SIDEBAR
+    ================================= -->
+
+    <aside class="sidebar"></aside>
+
+
+
+    <!-- ================================
+         CONTEÚDO PRINCIPAL
+    ================================= -->
+
+    <main class="main">
+
+
+        <!-- ================================
+             BARRA SUPERIOR
+        ================================= -->
+
+        <header class="topbar">
+
+            <div></div>
+
+
+            <div class="user">
+
+
+                <div class="notification">
+
+                    🔔
+
+                    <span>
+                        3
+                    </span>
+
+                </div>
+
+
+                <div class="avatar">
+                    JS
+                </div>
+
+
+                <strong>
+                    João Silva
+                </strong>
+
+
+                <span class="arrow">
+                    ⌄
+                </span>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================================
+             CONTEÚDO
+        ================================= -->
+
+        <section class="content">
+
+
+            <!-- TÍTULO -->
+
+            <div class="page-title">
+
+                <div class="title-icon">
+                    👤
+                </div>
+
+
+                <div>
+
+                    <h1>
+                        Meu Perfil
+                    </h1>
+
+                    <p>
+                        Confira e gerencie seus dados pessoais.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 PAINEL DO PERFIL
+            ================================= -->
+
+            <section class="profile-panel">
+
+
+                <!-- CABEÇALHO -->
+
+                <div class="profile-header">
+
+
+                    <div class="profile-avatar">
+                        JS
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            João Silva
+                        </h2>
+
+                        <p>
+                            Beneficiário ProBem
+                        </p>
+
+                    </div>
+
+
+                    <button class="edit-profile" id="btnEditarPerfil" type="button">
+
+                        ✏️ Editar dados
+
+                    </button>
+
+
+                </div>
+
+
+
+                <!-- DIVISÓRIA -->
+
+                <div class="profile-divider"></div>
+
+
+
+                <!-- ================================
+                     DADOS PESSOAIS
+                ================================= -->
+
+                <h3>
+                    Dados pessoais
+                </h3>
+
+
+                <div class="profile-grid">
+
+
+                    <div class="profile-field">
+
+                        <span title="Campo bloqueado para alteração">
+                            Nome completo 🔒
+                        </span>
+
+                        <strong id="val-nome">
+                            João Silva
+                        </strong>
+
+                    </div>
+
+
+                    <div class="profile-field">
+
+                        <span title="Campo bloqueado para alteração">
+                            CPF 🔒
+                        </span>
+
+                        <strong id="val-cpf">
+                            000.000.000-00
+                        </strong>
+
+                    </div>
+
+
+                    <div class="profile-field">
+
+                        <span title="Campo bloqueado para alteração">
+                            Data de nascimento 🔒
+                        </span>
+
+                        <strong id="val-nascimento">
+                            00/00/0000
+                        </strong>
+
+                    </div>
+
+
+                    <div class="profile-field">
+
+                        <span>
+                            E-mail
+                        </span>
+
+                        <strong id="val-email">
+                            joao@email.com
+                        </strong>
+
+                    </div>
+
+
+                    <div class="profile-field">
+
+                        <span>
+                            Telefone
+                        </span>
+
+                        <strong id="val-telefone">
+                            (00) 00000-0000
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- DIVISÓRIA -->
+
+                <div class="profile-divider"></div>
+
+
+
+                <!-- ================================
+                     ENDEREÇO
+                ================================= -->
+
+                <h3>
+                    Endereço
+                </h3>
+
+
+                <div class="profile-grid">
+
+
+                    <div class="profile-field">
+
+                        <span>
+                            CEP
+                        </span>
+
+                        <strong id="val-cep">
+                            00000-000
+                        </strong>
+
+                    </div>
+
+
+                    <div class="profile-field">
+
+                        <span>
+                            Endereço
+                        </span>
+
+                        <strong id="val-endereco">
+                            Rua Exemplo
+                        </strong>
+
+                    </div>
+
+
+                    <div class="profile-field">
+
+                        <span>
+                            Número
+                        </span>
+
+                        <strong id="val-numero">
+                            123
+                        </strong>
+
+                    </div>
+
+
+                    <div class="profile-field">
+
+                        <span>
+                            Bairro
+                        </span>
+
+                        <strong id="val-bairro">
+                            Centro
+                        </strong>
+
+                    </div>
+
+
+                    <div class="profile-field">
+
+                        <span>
+                            Cidade
+                        </span>
+
+                        <strong id="val-cidade">
+                            Goiânia
+                        </strong>
+
+                    </div>
+
+
+                    <div class="profile-field">
+
+                        <span>
+                            Estado
+                        </span>
+
+                        <strong id="val-estado">
+                            GO
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+
+    <!-- ================================
+         MODAL DE EDIÇÃO DO PERFIL
+    ================================= -->
+    <div class="modal-overlay" id="modalEditarPerfil" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-header-info">
+                    <div class="modal-icon">✏️</div>
+                    <div>
+                        <h2 id="modalTitulo">Editar Dados</h2>
+                        <p>Atualize os dados de contato e endereço do beneficiário</p>
+                    </div>
+                </div>
+                <button class="modal-close" id="btnFecharModal" aria-label="Fechar modal">&times;</button>
+            </div>
+
+            <div class="modal-notice">
+                <span class="notice-icon">🔒</span>
+                <div>
+                    Por segurança cadastral do programa, <strong>Nome Completo</strong>, <strong>CPF</strong> e <strong>Data de Nascimento</strong> são protegidos e não podem ser alterados pelo portal.
+                </div>
+            </div>
+
+            <form id="formEditarPerfil">
+                <div class="modal-body">
+                    <div class="form-section-title">
+                        👤 Dados Pessoais
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group disabled">
+                            <label for="input-nome">
+                                Nome Completo
+                                <span class="locked-tag">🔒 Bloqueado</span>
+                            </label>
+                            <input type="text" id="input-nome" value="João Silva" disabled readonly>
+                        </div>
+
+                        <div class="form-group disabled">
+                            <label for="input-cpf">
+                                CPF
+                                <span class="locked-tag">🔒 Bloqueado</span>
+                            </label>
+                            <input type="text" id="input-cpf" value="000.000.000-00" disabled readonly>
+                        </div>
+
+                        <div class="form-group disabled">
+                            <label for="input-nascimento">
+                                Data de Nascimento
+                                <span class="locked-tag">🔒 Bloqueado</span>
+                            </label>
+                            <input type="text" id="input-nascimento" value="00/00/0000" disabled readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-email">
+                                E-mail
+                            </label>
+                            <input type="email" id="input-email" placeholder="joao@email.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-telefone">
+                                Telefone
+                            </label>
+                            <input type="tel" id="input-telefone" placeholder="(00) 00000-0000" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section-title" style="margin-top: 18px;">
+                        📍 Endereço
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="input-cep">CEP</label>
+                            <input type="text" id="input-cep" placeholder="00000-000">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-endereco">Endereço / Logradouro</label>
+                            <input type="text" id="input-endereco" placeholder="Rua Exemplo">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-numero">Número</label>
+                            <input type="text" id="input-numero" placeholder="123">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-bairro">Bairro</label>
+                            <input type="text" id="input-bairro" placeholder="Centro">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-cidade">Cidade</label>
+                            <input type="text" id="input-cidade" placeholder="Goiânia">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-estado">Estado (UF)</label>
+                            <input type="text" id="input-estado" placeholder="GO" style="text-transform: uppercase;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-restore" id="btnRestaurarPadrao" title="Restaurar dados originais de demonstração">
+                        🔄 Restaurar padrão
+                    </button>
+                    <div class="modal-footer-actions">
+                        <button type="button" class="btn-cancel" id="btnCancelarModal">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn-save">
+                            💾 Salvar alterações
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- ================================
+         NOTIFICAÇÃO TOAST
+    ================================= -->
+    <div class="toast-notification" id="toastNotificacao" role="alert">
+        <span class="toast-icon">✅</span>
+        <span id="toastMensagem">Dados atualizados com sucesso!</span>
+    </div>
+
+
+    <script src="menu.js"></script>
+
+    <script>
+        /* =====================================================
+           EDIÇÃO DO PERFIL (MODO DEMONSTRAÇÃO)
+        ===================================================== */
+        (function () {
+            // Valores padrão originais
+            const DADOS_PADRAO = {
+                nome: "João Silva",
+                cpf: "000.000.000-00",
+                nascimento: "00/00/0000",
+                email: "joao@email.com",
+                telefone: "(00) 00000-0000",
+                cep: "00000-000",
+                endereco: "Rua Exemplo",
+                numero: "123",
+                bairro: "Centro",
+                cidade: "Goiânia",
+                estado: "GO"
+            };
+
+            // Elementos de exibição na página
+            const elCampos = {
+                nome: document.getElementById("val-nome"),
+                cpf: document.getElementById("val-cpf"),
+                nascimento: document.getElementById("val-nascimento"),
+                email: document.getElementById("val-email"),
+                telefone: document.getElementById("val-telefone"),
+                cep: document.getElementById("val-cep"),
+                endereco: document.getElementById("val-endereco"),
+                numero: document.getElementById("val-numero"),
+                bairro: document.getElementById("val-bairro"),
+                cidade: document.getElementById("val-cidade"),
+                estado: document.getElementById("val-estado")
+            };
+
+            // Inputs do formulário modal
+            const inputCampos = {
+                nome: document.getElementById("input-nome"),
+                cpf: document.getElementById("input-cpf"),
+                nascimento: document.getElementById("input-nascimento"),
+                email: document.getElementById("input-email"),
+                telefone: document.getElementById("input-telefone"),
+                cep: document.getElementById("input-cep"),
+                endereco: document.getElementById("input-endereco"),
+                numero: document.getElementById("input-numero"),
+                bairro: document.getElementById("input-bairro"),
+                cidade: document.getElementById("input-cidade"),
+                estado: document.getElementById("input-estado")
+            };
+
+            // Elementos de controle do modal
+            const modal = document.getElementById("modalEditarPerfil");
+            const btnEditar = document.getElementById("btnEditarPerfil");
+            const btnFechar = document.getElementById("btnFecharModal");
+            const btnCancelar = document.getElementById("btnCancelarModal");
+            const formEditar = document.getElementById("formEditarPerfil");
+            const btnRestaurar = document.getElementById("btnRestaurarPadrao");
+            const toast = document.getElementById("toastNotificacao");
+            const toastMsg = document.getElementById("toastMensagem");
+
+            let toastTimer = null;
+
+            // Função para exibir mensagem toast temporária
+            function mostrarToast(mensagem, icone = "✅") {
+                if (toastTimer) clearTimeout(toastTimer);
+                const iconSpan = toast.querySelector(".toast-icon");
+                if (iconSpan) iconSpan.textContent = icone;
+                toastMsg.textContent = mensagem;
+                toast.classList.add("show");
+
+                toastTimer = setTimeout(function () {
+                    toast.classList.remove("show");
+                }, 3500);
+            }
+
+            // Carregar dados salvos no navegador (demonstração persistente)
+            function carregarDadosSalvos() {
+                try {
+                    const salvos = localStorage.getItem("probem_perfil_dados");
+                    if (salvos) {
+                        const dados = JSON.parse(salvos);
+                        for (const chave in dados) {
+                            // Protege nome, cpf e data de nascimento contra alterações
+                            if (["nome", "cpf", "nascimento"].includes(chave)) continue;
+                            if (elCampos[chave] && dados[chave]) {
+                                elCampos[chave].textContent = dados[chave];
+                            }
+                        }
+                    }
+                } catch (e) {
+                    console.error("Erro ao carregar dados salvos:", e);
+                }
+            }
+
+            // Abrir modal e preencher inputs com os dados atuais
+            function abrirModal() {
+                // Campos bloqueados (apenas leitura)
+                inputCampos.nome.value = elCampos.nome ? elCampos.nome.textContent.trim() : DADOS_PADRAO.nome;
+                inputCampos.cpf.value = elCampos.cpf ? elCampos.cpf.textContent.trim() : DADOS_PADRAO.cpf;
+                inputCampos.nascimento.value = elCampos.nascimento ? elCampos.nascimento.textContent.trim() : DADOS_PADRAO.nascimento;
+
+                // Campos editáveis
+                inputCampos.email.value = elCampos.email ? elCampos.email.textContent.trim() : DADOS_PADRAO.email;
+                inputCampos.telefone.value = elCampos.telefone ? elCampos.telefone.textContent.trim() : DADOS_PADRAO.telefone;
+                inputCampos.cep.value = elCampos.cep ? elCampos.cep.textContent.trim() : DADOS_PADRAO.cep;
+                inputCampos.endereco.value = elCampos.endereco ? elCampos.endereco.textContent.trim() : DADOS_PADRAO.endereco;
+                inputCampos.numero.value = elCampos.numero ? elCampos.numero.textContent.trim() : DADOS_PADRAO.numero;
+                inputCampos.bairro.value = elCampos.bairro ? elCampos.bairro.textContent.trim() : DADOS_PADRAO.bairro;
+                inputCampos.cidade.value = elCampos.cidade ? elCampos.cidade.textContent.trim() : DADOS_PADRAO.cidade;
+                inputCampos.estado.value = elCampos.estado ? elCampos.estado.textContent.trim() : DADOS_PADRAO.estado;
+
+                modal.classList.add("active");
+                modal.setAttribute("aria-hidden", "false");
+                document.body.style.overflow = "hidden";
+
+                setTimeout(function () {
+                    inputCampos.email.focus();
+                }, 150);
+            }
+
+            // Fechar modal
+            function fecharModal() {
+                modal.classList.remove("active");
+                modal.setAttribute("aria-hidden", "true");
+                document.body.style.overflow = "";
+            }
+
+            // Salvar alterações realizadas no formulário
+            function salvarAlteracoes(e) {
+                if (e) e.preventDefault();
+
+                const novosDados = {
+                    email: inputCampos.email.value.trim() || DADOS_PADRAO.email,
+                    telefone: inputCampos.telefone.value.trim() || DADOS_PADRAO.telefone,
+                    cep: inputCampos.cep.value.trim() || DADOS_PADRAO.cep,
+                    endereco: inputCampos.endereco.value.trim() || DADOS_PADRAO.endereco,
+                    numero: inputCampos.numero.value.trim() || DADOS_PADRAO.numero,
+                    bairro: inputCampos.bairro.value.trim() || DADOS_PADRAO.bairro,
+                    cidade: inputCampos.cidade.value.trim() || DADOS_PADRAO.cidade,
+                    estado: (inputCampos.estado.value.trim() || DADOS_PADRAO.estado).toUpperCase()
+                };
+
+                // Atualizar na interface do perfil
+                for (const chave in novosDados) {
+                    if (elCampos[chave]) {
+                        elCampos[chave].textContent = novosDados[chave];
+                    }
+                }
+
+                // Salvar no localStorage para que continue na apresentação mesmo após refresh
+                try {
+                    localStorage.setItem("probem_perfil_dados", JSON.stringify(novosDados));
+                } catch (err) {
+                    console.warn("Aviso ao salvar localmente:", err);
+                }
+
+                fecharModal();
+                mostrarToast("Dados atualizados com sucesso!", "✅");
+            }
+
+            // Restaurar para os dados originais padrão
+            function restaurarPadrao() {
+                try {
+                    localStorage.removeItem("probem_perfil_dados");
+                } catch (err) {}
+
+                // Atualiza elementos da página para o padrão
+                for (const chave in DADOS_PADRAO) {
+                    if (elCampos[chave]) {
+                        elCampos[chave].textContent = DADOS_PADRAO[chave];
+                    }
+                    if (inputCampos[chave]) {
+                        inputCampos[chave].value = DADOS_PADRAO[chave];
+                    }
+                }
+
+                fecharModal();
+                mostrarToast("Dados restaurados para o padrão original!", "🔄");
+            }
+
+            // Formatação amigável para telefone
+            if (inputCampos.telefone) {
+                inputCampos.telefone.addEventListener("input", function (e) {
+                    let v = e.target.value.replace(/\D/g, "");
+                    if (v.length > 11) v = v.substring(0, 11);
+                    if (v.length > 10) {
+                        e.target.value = v.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+                    } else if (v.length > 6) {
+                        e.target.value = v.replace(/^(\d{2})(\d{4})(\d{0,4})$/, "($1) $2-$3");
+                    } else if (v.length > 2) {
+                        e.target.value = v.replace(/^(\d{2})(\d{0,5})$/, "($1) $2");
+                    } else if (v.length > 0) {
+                        e.target.value = "(" + v;
+                    }
+                });
+            }
+
+            // Formatação amigável para CEP
+            if (inputCampos.cep) {
+                inputCampos.cep.addEventListener("input", function (e) {
+                    let v = e.target.value.replace(/\D/g, "");
+                    if (v.length > 8) v = v.substring(0, 8);
+                    if (v.length > 5) {
+                        e.target.value = v.replace(/^(\d{5})(\d{1,3})$/, "$1-$2");
+                    } else {
+                        e.target.value = v;
+                    }
+                });
+            }
+
+            // Ouvintes de eventos
+            if (btnEditar) btnEditar.addEventListener("click", abrirModal);
+            if (btnFechar) btnFechar.addEventListener("click", fecharModal);
+            if (btnCancelar) btnCancelar.addEventListener("click", fecharModal);
+            if (formEditar) formEditar.addEventListener("submit", salvarAlteracoes);
+            if (btnRestaurar) btnRestaurar.addEventListener("click", restaurarPadrao);
+
+            // Fechar ao clicar fora do card modal
+            if (modal) {
+                modal.addEventListener("click", function (e) {
+                    if (e.target === modal) {
+                        fecharModal();
+                    }
+                });
+            }
+
+            // Fechar ao pressionar a tecla ESC
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "Escape" && modal && modal.classList.contains("active")) {
+                    fecharModal();
+                }
+            });
+
+            // Carrega dados salvos ao abrir a tela
+            carregarDadosSalvos();
+        })();
+    </script>
+</body>
+
+</html>

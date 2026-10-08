@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProBem - Início</title>
+    <link rel="stylesheet" href="tipografia.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-base);
+            background: #f7f5fb;
+            color: #2e2250;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        .app {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* MESMA ESCALA BASE DA PÁGINA BOLSAS */
+        .sidebar {
+            width: 290px;
+            min-width: 290px;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #2e2250 0%, #211842 100%);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand {
+            height: 82px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 24px;
+            color: #2e2250;
+        }
+
+        .brand-logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 9px;
+            background: #6a5496;
+            display: grid;
+            place-items: center;
+            font-size: var(--fs-xl);
+        }
+
+        .brand-text strong {
+            display: block;
+            font-size: var(--fs-2xl);
+            line-height: 1;
+        }
+
+        .brand-text small {
+            display: block;
+            font-size: var(--fs-xs);
+            color: #8a7fa3;
+            margin-top: 4px;
+        }
+
+        .menu {
+            padding: 16px 12px;
+        }
+
+        .menu-item {
+            height: 49px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 0 17px;
+            margin-bottom: 5px;
+            border-radius: 7px;
+            color: #fff;
+            font-size: var(--fs-sm);
+            font-weight: 600;
+            transition: .2s;
+        }
+
+        .menu-item:hover,
+        .menu-item.active {
+            background: #6a5496;
+        }
+
+        .menu-icon {
+            width: 23px;
+            text-align: center;
+            font-size: var(--fs-lg);
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 35px 42px;
+            color: #e4dcf3;
+            font-size: var(--fs-xs);
+            line-height: 1.7;
+        }
+
+        .main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .topbar {
+            height: 82px;
+            background: #fff;
+            border-bottom: 1px solid #e5dff0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 28px;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: var(--fs-sm);
+        }
+
+        .notification {
+            position: relative;
+            font-size: var(--fs-xl);
+            margin-right: 12px;
+        }
+
+        .notification span {
+            position: absolute;
+            top: -7px;
+            right: -7px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #e82f3d;
+            color: white;
+            display: grid;
+            place-items: center;
+            font-size: var(--fs-xs);
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #efebf5, #c8bcde);
+            display: grid;
+            place-items: center;
+            color: #2e2250;
+            font-size: var(--fs-xs);
+            font-weight: 800;
+        }
+
+        .user-arrow {
+            color: #6a5496;
+            font-size: var(--fs-lg);
+        }
+
+        .content {
+            padding: 30px 28px 40px;
+        }
+
+        .welcome h1 {
+            font-size: var(--fs-3xl);
+            line-height: 1.15;
+            margin-bottom: 6px;
+            color: #2e2250;
+        }
+
+        .welcome p {
+            font-size: var(--fs-md);
+            color: #715a98;
+            margin-bottom: 24px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+
+        .stat-card {
+            min-height: 112px;
+            border-radius: 10px;
+            border: 1px solid;
+            display: flex;
+            align-items: center;
+            gap: 17px;
+            padding: 18px 20px;
+            position: relative;
+            transition: .2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(20,70,120,.09);
+        }
+
+        .stat-card.courses {
+            background: linear-gradient(145deg, #faf8fd, #f6f4f9);
+            border-color: #dfd8ec;
+        }
+
+        .stat-card.pending {
+            background: linear-gradient(145deg, #fffdf8, #fff8ec);
+            border-color: #efdcb8;
+        }
+
+        .stat-card.jobs {
+            background: linear-gradient(145deg, #f8fffb, #eefaf4);
+            border-color: #c9e7d8;
+        }
+
+        .stat-icon {
+            width: 58px;
+            height: 58px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: var(--fs-2xl);
+        }
+
+        .courses .stat-icon { background: #e6dff2; }
+        .pending .stat-icon { background: #ffe7b1; }
+        .jobs .stat-icon { background: #ccefdc; }
+
+        .stat-info small {
+            display: block;
+            font-size: var(--fs-xs);
+            color: #6d5892;
+            font-weight: 800;
+            margin-bottom: 3px;
+        }
+
+        .stat-info strong {
+            display: block;
+            font-size: var(--fs-2xl);
+        }
+
+        .courses strong { color: #6a5496; }
+        .pending strong { color: #9b681b; }
+        .jobs strong { color: #087b54; }
+
+        .card-arrow {
+            position: absolute;
+            right: 18px;
+            color: #8d78b1;
+            font-size: var(--fs-2xl);
+        }
+
+        .attention {
+            background: #fff;
+            border: 1px solid #efcaca;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 18px;
+        }
+
+        .attention-header {
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 0 15px;
+            background: #fff7f7;
+            color: #dc363d;
+            font-size: var(--fs-sm);
+        }
+
+        .attention-item {
+            min-height: 83px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 15px;
+            border-top: 1px solid #f3eded;
+        }
+
+        .attention-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .attention-dot.red { background: #e6323d; }
+        .attention-dot.yellow { background: #e4a020; }
+
+        .attention-info {
+            flex: 1;
+        }
+
+        .attention-info strong,
+        .attention-info span,
+        .attention-info small {
+            display: block;
+        }
+
+        .attention-info strong {
+            font-size: var(--fs-xs);
+            color: #3b2b58;
+        }
+
+        .attention-info span {
+            font-size: var(--fs-xs);
+            color: #75698f;
+            margin-top: 4px;
+        }
+
+        .attention-info small {
+            font-size: var(--fs-xs);
+            color: #75698f;
+            margin-top: 4px;
+        }
+
+        .btn {
+            font-size: var(--fs-xs);
+            font-weight: 700;
+            padding: 9px 17px;
+            border-radius: 5px;
+        }
+
+        .resolve {
+            background: #dc3b42;
+            color: #fff;
+        }
+
+        .access {
+            border: 1px solid #9076bd;
+            color: #6a5496;
+            background: #fff;
+        }
+
+        .recommended {
+            background: #fff;
+            border: 1px solid #e5dff0;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .recommended-header {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: #513a78;
+            font-size: var(--fs-sm);
+            margin-bottom: 12px;
+        }
+
+        .recommendations {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .recommend-card {
+            min-height: 105px;
+            border: 1px solid #e5dfef;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .recommend-icon {
+            width: 48px;
+            height: 48px;
+            margin-left: 13px;
+            margin-right: 13px;
+            border-radius: 9px;
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: var(--fs-lg);
+        }
+
+        .excel {
+            background: #d8f1dd;
+            color: #168044;
+        }
+
+        .job {
+            background: #ebe7f3;
+            color: #6a5496;
+        }
+
+        .recommend-info {
+            flex: 1;
+            padding: 12px 0;
+        }
+
+        .recommend-info strong {
+            display: block;
+            font-size: var(--fs-sm);
+            color: #402e5f;
+        }
+
+        .recommend-info span {
+            display: block;
+            font-size: var(--fs-xs);
+            color: #75698f;
+            margin-top: 4px;
+        }
+
+        .recommend-info a {
+            display: inline-block;
+            margin-top: 9px;
+            padding: 6px 14px;
+            background: #19864d;
+            color: #fff;
+            border-radius: 4px;
+            font-size: var(--fs-xs);
+            font-weight: 700;
+        }
+
+        .recommend-card:nth-child(2) .recommend-info a {
+            background: #6a5496;
+        }
+
+        .recommend-image {
+            width: 155px;
+            min-height: 105px;
+            display: grid;
+            place-items: center;
+            font-size: var(--fs-display);
+        }
+
+        .excel-bg {
+            background: linear-gradient(135deg, #dff2e3, #cce8d1);
+        }
+
+        .office-bg {
+            background: linear-gradient(135deg, #f1eef7, #d3cbe1);
+        }
+
+        @media (max-width: 1050px) {
+            .sidebar { width: 240px; min-width: 240px; }
+            .recommend-image { width: 115px; }
+        }
+
+        @media (max-width: 800px) {
+            .stats,
+            .recommendations { grid-template-columns: 1fr; }
+            .sidebar { width: 210px; min-width: 210px; }
+        }
+
+        @media (max-width: 620px) {
+            .sidebar { width: 72px; min-width: 72px; }
+            .brand { padding: 0; justify-content: center; }
+            .brand-text,
+            .menu-item span:last-child,
+            .sidebar-footer { display: none; }
+            .menu-item { justify-content: center; padding: 0; }
+            .content { padding: 20px 14px; }
+            .recommend-image { display: none; }
+        }
+
+        /* ===== RESUMO ACADÊMICO ===== */
+        .academic {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+
+        .academic-info {
+            background: #fff;
+            border: 1px solid #e5dff0;
+            border-radius: 12px;
+            padding: 20px 22px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px 28px;
+            box-shadow: 0 6px 20px rgba(46, 34, 80, .04);
+        }
+
+        .ac-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .ac-icon {
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            border-radius: 10px;
+            background: #efebf7;
+            display: grid;
+            place-items: center;
+            font-size: var(--fs-lg);
+        }
+
+        .ac-item small {
+            display: block;
+            margin-bottom: 2px;
+            color: #75698f;
+            font-size: var(--fs-xs);
+            font-weight: 700;
+            letter-spacing: .4px;
+        }
+
+        .ac-item strong {
+            display: block;
+            color: #2e2250;
+            font-size: var(--fs-md);
+        }
+
+        .ac-item span {
+            display: block;
+            margin-top: 2px;
+            color: #75698f;
+            font-size: var(--fs-xs);
+        }
+
+        .invested {
+            background: #6a5496;
+            color: #fff;
+            border-radius: 12px;
+            border-bottom: 4px solid #F081B3;
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .invested small {
+            color: #e4dcf3;
+            font-size: var(--fs-xs);
+            font-weight: 700;
+            letter-spacing: .4px;
+        }
+
+        .invested strong {
+            margin: 6px 0 4px;
+            font-size: var(--fs-3xl);
+            line-height: 1.1;
+        }
+
+        .invested span {
+            color: #e4dcf3;
+            font-size: var(--fs-xs);
+        }
+
+        @media (max-width: 1100px) {
+            .academic { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 620px) {
+            .academic-info { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+<div class="app">
+
+    <aside class="sidebar"></aside>
+
+    <main class="main">
+        <header class="topbar">
+            <div></div>
+            <div class="user-area">
+                <div class="notification">🔔<span>3</span></div>
+                <div class="avatar">JS</div>
+                <strong>João Silva</strong>
+                <span class="user-arrow">⌄</span>
+            </div>
+        </header>
+
+        <section class="content">
+            <div class="welcome">
+                <h1>Olá, João! 👋</h1>
+                <p>Veja seu progresso e o que precisa da sua atenção.</p>
+            </div>
+
+                        <section class="academic" aria-label="Resumo acadêmico">
+                <div class="academic-info">
+                    <div class="ac-item">
+                        <div class="ac-icon">🏫</div>
+                        <div><small>FACULDADE</small><strong id="acFaculdade"></strong></div>
+                    </div>
+                    <div class="ac-item">
+                        <div class="ac-icon">🎓</div>
+                        <div><small>CURSO</small><strong id="acCurso"></strong></div>
+                    </div>
+                    <div class="ac-item">
+                        <div class="ac-icon">📅</div>
+                        <div><small>PERÍODO ATUAL</small><strong id="acPeriodo"></strong><span id="acSemestre"></span></div>
+                    </div>
+                    <div class="ac-item">
+                        <div class="ac-icon">🗂️</div>
+                        <div><small>PERÍODOS COM BENEFÍCIO</small><strong id="acQtd"></strong><span id="acIntervalo"></span></div>
+                    </div>
+                </div>
+
+                <div class="invested">
+                    <small>TOTAL INVESTIDO EM VOCÊ</small>
+                    <strong id="acTotal"></strong>
+                    <span id="acMedia"></span>
+                </div>
+            </section>
+
+            <section class="stats">
+                <a href="meus-cursos.html" class="stat-card courses">
+                    <div class="stat-icon">📖</div>
+                    <div class="stat-info"><small>ATIVIDADES</small><strong>04</strong></div>
+                    <span class="card-arrow">›</span>
+                </a>
+
+                <a href="pendencias.html" class="stat-card pending">
+                    <div class="stat-icon">⚠️</div>
+                    <div class="stat-info"><small>PENDÊNCIAS</small><strong>02</strong></div>
+                    <span class="card-arrow">›</span>
+                </a>
+
+                <a href="oportunidades.html" class="stat-card jobs">
+                    <div class="stat-icon">💼</div>
+                    <div class="stat-info"><small>VAGAS</small><strong>06</strong></div>
+                    <span class="card-arrow">›</span>
+                </a>
+            </section>
+
+            <section class="attention">
+                <div class="attention-header">
+                    <span>⚠️</span><strong>ATENÇÃO</strong>
+                </div>
+
+                <div class="attention-item">
+                    <div class="attention-dot red"></div>
+                    <div class="attention-info">
+                        <strong>Documento pendente</strong>
+                        <span>Comprovante de residência</span>
+                        <small>📅 Prazo: 30/09/2026</small>
+                    </div>
+                    <a href="pendencias.html" class="btn resolve">Resolver</a>
+                </div>
+
+                <div class="attention-item">
+                    <div class="attention-dot yellow"></div>
+                    <div class="attention-info">
+                        <strong>Atividades pendente</strong>
+                        <span>Excel Básico</span>
+                    </div>
+                    <a href="meus-cursos.html" class="btn access">Acessar curso</a>
+                </div>
+            </section>
+
+            <section class="recommended">
+                <div class="recommended-header">
+                    <span>🚀</span><strong>RECOMENDADO PARA VOCÊ</strong>
+                </div>
+
+                <div class="recommendations">
+                    <article class="recommend-card">
+                        <div class="recommend-icon excel">X</div>
+                        <div class="recommend-info">
+                            <strong>Excel Avançado</strong>
+                            <span>Atividade disponível</span>
+                            <a href="Atividades.html">Ver atividade</a>
+                        </div>
+                        <div class="recommend-image excel-bg">💻</div>
+                    </article>
+
+                    <article class="recommend-card">
+                        <div class="recommend-icon job">💼</div>
+                        <div class="recommend-info">
+                            <strong>Estágio</strong>
+                            <span>Administrativo</span>
+                            <a href="oportunidades.html">Ver oportunidade</a>
+                        </div>
+                        <div class="recommend-image office-bg">🖥️</div>
+                    </article>
+                </div>
+            </section>
+        </section>
+    </main>
+</div>
+    <script>
+        // Dados de exemplo. Quando houver sistema/API, basta preencher este objeto.
+        const dadosBeneficiario = {
+            faculdade: "Universidade Exemplo de Goiás",
+            curso: "Administração",
+            periodoAtual: "5º período",
+            semestreAtual: "2026-2",
+            periodosComBeneficio: 6,
+            primeiroPeriodo: "2024-1",
+            valorTotalInvestido: 18450
+        };
+
+        const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+        const d = dadosBeneficiario;
+        const set = (id, texto) => { document.getElementById(id).textContent = texto; };
+
+        set("acFaculdade", d.faculdade);
+        set("acCurso", d.curso);
+        set("acPeriodo", d.periodoAtual);
+        set("acSemestre", "Semestre " + d.semestreAtual);
+        set("acQtd", d.periodosComBeneficio + (d.periodosComBeneficio === 1 ? " período" : " períodos"));
+        set("acIntervalo", d.primeiroPeriodo + " a " + d.semestreAtual);
+        set("acTotal", brl.format(d.valorTotalInvestido));
+        set("acMedia", "Média de " + brl.format(d.valorTotalInvestido / d.periodosComBeneficio) + " por período");
+    </script>
+    <script src="menu.js"></script>
+</body>
+</html>
