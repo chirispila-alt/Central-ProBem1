@@ -7,8 +7,8 @@
 :root {
     --font-base: "Segoe UI", Roboto, Arial, sans-serif;
 
-    --fs-xs: 12px;   /* tags, datas, legendas, textos auxiliares (mínimo) */
-    --fs-sm: 14px;   /* texto corrido, menu, botões, campos */
+    --fs-xs: 14px;   /* tags, datas, legendas, textos auxiliares (mínimo) */
+    --fs-sm: 16px;   /* texto corrido, menu, botões, campos */
     --fs-md: 16px;   /* destaques, subtítulos pequenos */
     --fs-lg: 18px;   /* títulos de seção, ícones */
     --fs-xl: 22px;   /* títulos de cards grandes, ícones grandes */
