@@ -30,7 +30,7 @@
 
         .avisos-header p {
             margin: 4px 0 0;
-            font-size: var(--fs-xs);
+            font-size: var(--fs-desc);
             color: #755d9f;
         }
 
@@ -166,7 +166,7 @@
 
             color: #78619f;
 
-            font-size: var(--fs-xs);
+            font-size: var(--fs-desc);
 
             line-height: 1.5;
         }
@@ -236,6 +236,67 @@
             padding-top: 2px;
 
             flex-shrink: 0;
+        }
+
+
+        /* =====================================================
+           CRONOGRAMA, BOTÃO E FILTRO VAZIO
+        ===================================================== */
+
+        .aviso-card[hidden],
+        .avisos-vazio[hidden] {
+            display: none !important;
+        }
+
+        .aviso-card.cronograma {
+            border-left: 3px solid #A8C858;
+        }
+
+        .aviso-tag.cronograma {
+            background: #eef6dc;
+            color: #5b7a1f;
+        }
+
+        .aviso-acoes {
+            margin-top: 10px;
+        }
+
+        .aviso-botao {
+            display: inline-block;
+
+            padding: 8px 14px;
+
+            border-radius: 7px;
+
+            background: #6a5496;
+
+            color: white;
+
+            font-size: var(--fs-xs);
+
+            font-weight: 700;
+
+            transition: .2s;
+        }
+
+        .aviso-botao:hover {
+            background: #54427d;
+        }
+
+        .avisos-vazio {
+            padding: 24px;
+
+            text-align: center;
+
+            color: #8a7fa3;
+
+            font-size: var(--fs-sm);
+
+            background: white;
+
+            border: 1px dashed #e5dff0;
+
+            border-radius: 8px;
         }
 
 
@@ -386,29 +447,22 @@
             <div class="avisos-filtros">
 
 
-                <button class="filtro active">
-                    Todos
-                </button>
+                <button type="button" class="filtro active" data-filtro="todos">Todos</button>
 
 
-                <button class="filtro">
-                    Importantes
-                </button>
+                <button type="button" class="filtro" data-filtro="importante">Importantes</button>
 
 
-                <button class="filtro">
-                    Bolsas
-                </button>
+                <button type="button" class="filtro" data-filtro="bolsas">Bolsas</button>
 
 
-                <button class="filtro">
-                    Atividades
-                </button>
+                <button type="button" class="filtro" data-filtro="atividades">Atividades</button>
 
 
-                <button class="filtro">
-                    Sistema
-                </button>
+                <button type="button" class="filtro" data-filtro="sistema">Sistema</button>
+
+
+                <button type="button" class="filtro" data-filtro="cronograma">Cronograma</button>
 
 
             </div>
@@ -422,11 +476,79 @@
             <div class="avisos-lista">
 
 
+                <!-- MENSAGEM QUANDO NÃO HÁ AVISOS NO FILTRO -->
+
+                <p class="avisos-vazio" id="avisosVazio" hidden>
+                    Nenhum aviso nesta categoria.
+                </p>
+
+
+                <!-- =================================================
+                     CRONOGRAMA DO SEMESTRE
+                     O PDF fica na pasta "src" (src/cronograma-semestre.pdf).
+                     Use sempre caminho relativo (nunca C:\...), assim funciona
+                     no computador e no GitHub. Para trocar o arquivo,
+                     altere o href do botão abaixo.
+                     Pode ser um PDF, uma imagem (.png/.jpg) ou um link.
+                ================================================= -->
+
+                <div class="aviso-card cronograma" data-categorias="cronograma">
+
+
+                    <div class="aviso-icon">
+                        📅
+                    </div>
+
+
+                    <div class="aviso-conteudo">
+
+
+                        <div class="aviso-titulo">
+                            Cronograma do semestre
+                        </div>
+
+
+                        <p class="aviso-descricao">
+
+                            Consulte as datas importantes do semestre:
+                            início e fim das aulas, prazos e eventos.
+
+                        </p>
+
+
+                        <span class="aviso-tag cronograma">
+                            Cronograma
+                        </span>
+
+
+                        <div class="aviso-acoes">
+
+                            <a href="src/cronograma-semestre.pdf"
+                               class="aviso-botao"
+                               target="_blank"
+                               rel="noopener">
+                                📄 Ver cronograma
+                            </a>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="aviso-data">
+                        Semestre atual
+                    </div>
+
+
+                </div>
+
+
                 <!-- =================================================
                      AVISO 1
                 ================================================= -->
 
-                <div class="aviso-card importante">
+                <div class="aviso-card importante" data-categorias="importante">
 
 
                     <div class="aviso-icon">
@@ -472,7 +594,7 @@
                      AVISO 2
                 ================================================= -->
 
-                <div class="aviso-card">
+                <div class="aviso-card" data-categorias="atividades">
 
 
                     <div class="aviso-icon">
@@ -517,7 +639,7 @@
                      AVISO 3
                 ================================================= -->
 
-                <div class="aviso-card">
+                <div class="aviso-card" data-categorias="bolsas">
 
 
                     <div class="aviso-icon">
@@ -562,7 +684,7 @@
                      AVISO 4
                 ================================================= -->
 
-                <div class="aviso-card">
+                <div class="aviso-card" data-categorias="sistema">
 
 
                     <div class="aviso-icon">
@@ -607,7 +729,7 @@
                      AVISO 5
                 ================================================= -->
 
-                <div class="aviso-card">
+                <div class="aviso-card" data-categorias="oportunidades">
 
 
                     <div class="aviso-icon">
@@ -658,6 +780,61 @@
 
 </div>
 
+
+    <script>
+
+        // =====================================================
+        // FILTROS DOS AVISOS
+        // =====================================================
+
+        (function () {
+
+            var botoes = document.querySelectorAll(".filtro");
+            var cards  = document.querySelectorAll(".aviso-card");
+            var vazio  = document.getElementById("avisosVazio");
+
+            function filtrar(categoria) {
+
+                var visiveis = 0;
+
+                cards.forEach(function (card) {
+
+                    var categorias = (card.dataset.categorias || "").split(" ");
+
+                    var mostrar = categoria === "todos" ||
+                                  categorias.indexOf(categoria) !== -1;
+
+                    card.hidden = !mostrar;
+
+                    if (mostrar) visiveis++;
+
+                });
+
+                if (vazio) vazio.hidden = visiveis > 0;
+
+            }
+
+            botoes.forEach(function (botao) {
+
+                botao.addEventListener("click", function () {
+
+                    botoes.forEach(function (b) {
+                        b.classList.remove("active");
+                        b.setAttribute("aria-pressed", "false");
+                    });
+
+                    botao.classList.add("active");
+                    botao.setAttribute("aria-pressed", "true");
+
+                    filtrar(botao.dataset.filtro);
+
+                });
+
+            });
+
+        })();
+
+    </script>
 
     <script src="menu.js"></script>
 </body>
